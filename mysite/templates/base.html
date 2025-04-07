@@ -1,16 +1,29 @@
-<!DOCTYPE html>
+{% load static %}  
 <html>
-  <head>
+<head>
     <title>My Django Blog</title>
-  </head>
-  <body>
-    <div id="container">
-      <div id="content">
-      {% block content %}
-       [content will go here]
-      {% endblock %}
-      </div>
+    <link rel="stylesheet" href="{% static 'django_blog.css' %}" type="text/css">  
+</head>
+<body>
+    <div id="header">  
+        <ul id="control-bar">
+            {% if user.is_authenticated %}
+                {% if user.is_staff %}
+                    <li><a href="{% url 'admin:index' %}">admin</a></li>
+                {% endif %}
+                <li><a href="{% url 'logout' %}">logout</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}">login</a></li>
+            {% endif %}
+        </ul>
     </div>
-  </body>
+    <div id="container">
+        <div id="content">
+            {% block content %}
+           
+            {% endblock %}
+        </div>
+    </div>
+</body>
 </html>
 
