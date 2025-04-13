@@ -10,6 +10,7 @@ class Post(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
     published_date = models.DateTimeField(blank=True, null=True)
+    categories = models.ManyToManyField('Category', related_name='posts', blank=True)
 
     def __str__(self):
         return self.title
@@ -18,12 +19,12 @@ class Post(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=128)
     description = models.TextField(blank=True)
-    posts = models.ManyToManyField(Post, blank=True, related_name='categories')
+    #posts = models.ManyToManyField(Post, blank=True, related_name='categories')
 
     def __str__(self):
         return self.name
 
-    class Meta:
-        verbose_name_plural = 'Categories' 
+    #class Meta:
+        #verbose_name_plural = 'Categories' 
 
-    pass
+    #pass
