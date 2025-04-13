@@ -6,7 +6,7 @@ import datetime
 from blogging.models import Post, Category
 from django.contrib.auth.models import User
 from django.test import TestCase, RequestFactory
-from blogging.views import detail_view
+#from blogging.views import detail_view
 from django.test import TestCase
 from django.utils.timezone import now as django_now
 from datetime import timedelta
