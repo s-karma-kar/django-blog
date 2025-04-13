@@ -6,6 +6,6 @@ install:
   - pip install -r requirements.txt
   - python manage.py migrate
 script:
-  - black --check blogging mysite polling || (echo "🔍 Black formatting diff:" && black --diff mysite/urls.py && exit 1)
+  - black --check blogging mysite polling
   - python manage.py test
 
