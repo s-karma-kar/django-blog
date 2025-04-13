@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include  # <-- Make sure you have both of these imports.
 from django.contrib.auth.views import LoginView, LogoutView
+
 urlpatterns = [
     path("polling/", include("polling.urls")),  # <-- Add this
     path("admin/", admin.site.urls),
