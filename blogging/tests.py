@@ -19,7 +19,7 @@ class PostTestCase(TestCase):
     fixtures = ["blogging_test_fixture.json"]
 
     def setUp(self):
-        # Ensure there's a user available from fixture or create one
+
         if not User.objects.filter(pk=1).exists():
             User.objects.create_user("testuser", "test@example.com", "password")
         self.user = User.objects.get(pk=1)
@@ -46,10 +46,10 @@ class FrontEndTestCase(TestCase):
         )
         self.now = django_now()
 
-        for count in range(1, 5):  # Example with 4 posts for simplicity
+        for count in range(1, 11):
             post = Post(
                 title=f"Post {count} Title",
-                text="Text for post {count}",
+                text=f"Text for post {count}",
                 author=self.user,
             )
             if count % 2 == 0:
@@ -57,11 +57,22 @@ class FrontEndTestCase(TestCase):
                     days=365
                 )  # Clearly in the past
             post.save()
-            # Immediately fetch and print to verify
+
             saved_post = Post.objects.get(pk=post.pk)
             print(
                 f"Post ID: {saved_post.pk}, Set Date: {post.published_date}, Saved Date: {saved_post.published_date}"
             )
+
+    def test_list_only_published(self):
+        resp = self.client.get("/")
+        resp_text = resp.content.decode(resp.charset)
+        self.assertTrue("Coolest Posts" in resp_text)
+        for count in range(1, 11):
+            title = "Post %d Title" % count
+            if count % 2 == 0:
+                self.assertContains(resp, title, count=1)
+            else:
+                self.assertNotContains(resp, title)
 
     def test_details_only_published(self):
         for post in Post.objects.all():
