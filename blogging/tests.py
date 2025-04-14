@@ -62,7 +62,7 @@ class FrontEndTestCase(TestCase):
             print(
                 f"Post ID: {saved_post.pk}, Set Date: {post.published_date}, Saved Date: {saved_post.published_date}"
             )
-            
+
     def test_list_only_published(self):
         resp = self.client.get("/")
         resp_text = resp.content.decode(resp.charset)
@@ -73,7 +73,7 @@ class FrontEndTestCase(TestCase):
                 self.assertContains(resp, title, count=1)
             else:
                 self.assertNotContains(resp, title)
-                
+
     def test_details_only_published(self):
         for post in Post.objects.all():
             response = self.client.get(f"/posts/{post.pk}/")
