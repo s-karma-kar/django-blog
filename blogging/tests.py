@@ -19,7 +19,7 @@ class PostTestCase(TestCase):
     fixtures = ["blogging_test_fixture.json"]
 
     def setUp(self):
-        
+
         if not User.objects.filter(pk=1).exists():
             User.objects.create_user("testuser", "test@example.com", "password")
         self.user = User.objects.get(pk=1)
@@ -57,12 +57,12 @@ class FrontEndTestCase(TestCase):
                     days=365
                 )  # Clearly in the past
             post.save()
-            
+
             saved_post = Post.objects.get(pk=post.pk)
             print(
                 f"Post ID: {saved_post.pk}, Set Date: {post.published_date}, Saved Date: {saved_post.published_date}"
             )
-            
+
     def test_list_only_published(self):
         resp = self.client.get("/")
         resp_text = resp.content.decode(resp.charset)
@@ -73,7 +73,7 @@ class FrontEndTestCase(TestCase):
                 self.assertContains(resp, title, count=1)
             else:
                 self.assertNotContains(resp, title)
-                
+
     def test_details_only_published(self):
         for post in Post.objects.all():
             response = self.client.get(f"/posts/{post.pk}/")
