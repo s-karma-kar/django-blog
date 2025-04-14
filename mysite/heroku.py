@@ -20,3 +20,4 @@ MIDDLEWARE = (
     "whitenoise.middleware.WhiteNoiseMiddleware",
     *MIDDLEWARE,
 )
+INSTALLED_APPS += []
