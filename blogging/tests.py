@@ -49,7 +49,7 @@ class FrontEndTestCase(TestCase):
         for count in range(1, 11):
             post = Post(
                 title=f"Post {count} Title",
-                text="Text for post {count}",
+                text=f"Text for post {count}",
                 author=self.user,
             )
             if count % 2 == 0:
@@ -69,7 +69,7 @@ class FrontEndTestCase(TestCase):
         self.assertTrue("Coolest Posts" in resp_text)
         for count in range(1, 11):
             title = "Post %d Title" % count
-            if count < 6:
+            if count % 2 == 0:
                 self.assertContains(resp, title, count=1)
             else:
                 self.assertNotContains(resp, title)
